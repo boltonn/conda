@@ -1,0 +1,10 @@
+[clse-nvidia]
+name=NVIDIA CUDA Repository
+baseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64
+gpgkey=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub
+gpgkey=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/D42D0685.pub
+enabled=1
+gpgcheck=1
+timeout=120
+skip_if_unavailable=0
+keepcache=0

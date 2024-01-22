@@ -1,0 +1,17 @@
+FROM conda:latest
+
+ARG CUDA_VERSION="11.8"
+
+# activate conda environment
+RUN conda install -y -c conda-forge cudatoolkit cudnn cupti=${CUDA_VERSION} && \
+    conda clean -afy
+
+RUN distribution=$(. /etc/os-release;echo $ID`rpm -E "%{?rhel}%{?fedora}"`)
+COPY clse-nvidia.repo /etc/yum.repos.d/clse-nvidia.repo
+USER root
+RUN chmod 0644 /etc/yum.repos.d/clse-nvidia.repo && \
+    yum install -y cuda-compat-${CUDA_VERSION//./-} && \
+    yum -y autoremove && \
+    yum clean all && \
+    ln -s /usr/local/cuda-${CUDA_VERSION} /usr/local/cuda
+COPY cuda-compat.sh /home/conda/.conda/.envs/base/etc/conda/activate.d
